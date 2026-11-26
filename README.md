@@ -6,7 +6,7 @@ O PaymentCore API é uma simulação de operações financeiras para estudo e po
 
 ## Objetivo
 
-Exercitar, em um monólito pequeno, o desenho de uma API de conta e transferência: regras de saldo, transação única, idempotência, concorrência e histórico. O esquema do banco é controlado pelo Flyway. A aplicação valida esse esquema em vez de criá-lo em tempo de execução.
+Exercitar, em um projeto pequeno, o desenho de uma API de conta e transferência: regras de saldo, transação única, idempotência, concorrência e histórico. O esquema do banco é controlado pelo Flyway. A aplicação valida esse esquema em vez de criá-lo em tempo de execução.
 
 ## Tecnologias
 
