@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: payment-core-db
+    environment:
+      POSTGRES_DB: payment_core
+      POSTGRES_USER: payment_user
+      POSTGRES_PASSWORD: payment_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - payment_core_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U payment_user -d payment_core"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  payment_core_data:
