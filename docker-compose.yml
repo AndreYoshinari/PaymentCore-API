@@ -1,3 +1,4 @@
+
 services:
   postgres:
     image: postgres:16-alpine
@@ -15,6 +16,28 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  api:
+    build: .
+    image: payment-core-api
+    container_name: payment-core-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/payment_core
+      DB_USERNAME: payment_user
+      DB_PASSWORD: payment_password
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-15m}
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/actuator/health | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 60s
 
 volumes:
   payment_core_data:
